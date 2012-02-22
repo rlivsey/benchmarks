@@ -5,9 +5,9 @@ require 'rbench'
 require 'active_record'
 ActiveRecord::Base.establish_connection(
   :adapter => "sqlite3",
-  :database  => "benchmark.db"
+  :database  => ":memory:"
 )
-ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS active_record_models")
+# ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS active_record_models")
 ActiveRecord::Base.connection.execute("CREATE TABLE active_record_models (id INTEGER UNIQUE, title STRING, text STRING)")
 class ActiveRecordModel < ActiveRecord::Base
 end
