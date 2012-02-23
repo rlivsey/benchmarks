@@ -25,6 +25,17 @@ SequelDB.run("CREATE TABLE sequel_posts (id INTEGER UNIQUE, title STRING, text S
 class SequelPost < Sequel::Model; end
 SequelPost.new
 
+############### MongoMapper #####################
+require 'mongo_mapper'
+class MongoMapperModel
+  include MongoMapper::Document
+
+  key :id,    ObjectId
+  key :title, String
+  key :text,  String
+end
+MongoMapperModel.new
+
 ############### Basic Class #####################
 class PlainModel
   attr_accessor :id, :title, :text
@@ -34,7 +45,6 @@ class PlainModel
     self
   end
 end
-
 
 ATTRS = {:id => 1, :title => "Foo", :text => "Bar"}
 
@@ -47,6 +57,7 @@ RBench.run(100_000) do
   column :ar2,         :title => "AR no protection"
   column :dm,          :title => "Datamapper"
   column :sequel,      :title => 'Sequel'
+  column :mongomapper, :title => 'MongoMapper'
 
   report ".new()" do
     plain do
@@ -67,7 +78,9 @@ RBench.run(100_000) do
     sequel do
       SequelPost.new
     end
-
+    mongomapper do
+      MongoMapperModel.new
+    end
   end
 
   report ".new(#{ATTRS.inspect})" do
@@ -88,6 +101,9 @@ RBench.run(100_000) do
     end
     sequel do
       SequelPost.new ATTRS
+    end
+    mongomapper do
+      MongoMapperModel.new ATTRS
     end
   end
 end

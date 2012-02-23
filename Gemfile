@@ -11,4 +11,5 @@ gem "sequel"
 gem 'dm-core', '1.2.0'
 gem 'dm-sqlite-adapter', '1.2.0'
 gem "sqlite3"
-
+gem 'bson_ext'
+gem "mongo_mapper"
