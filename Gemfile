@@ -8,5 +8,7 @@ gem "rbench"
 gem "mysql"
 gem "mysql2"
 gem "sequel"
+gem 'dm-core', '1.2.0'
+gem 'dm-sqlite-adapter', '1.2.0'
 gem "sqlite3"
 
